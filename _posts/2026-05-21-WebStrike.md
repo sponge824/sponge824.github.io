@@ -20,7 +20,7 @@ pin: false
 
 ![webstrike_01](/assets/cyberdef/webstrike_01.png)
 Based on the pcap file, there are only 2 IP found. By looking at the pcap file, `117.11.88.124` is probably the attacker.
-![[webstrike_02.png]]
+![webstrike_02](/assets/cyberdef/webstrike_02.png)
 In order to know where the attack originate, I used `ip.info`. The attack is from Tianjin, China
 ```Answer
 Tianjin
@@ -28,24 +28,24 @@ Tianjin
 >Q2: Knowing the attacker's User-Agent assists in creating robust filtering rules. What's the attacker's Full User-Agent?
 
 Follow the TCP stream of the attacker's IP, we can see the user agent
-![[webstrike_03.png]]
+![webstrike_03](/assets/cyberdef/webstrike_03.png)
 ```Answer
 Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
 ```
 >Q3: We need to determine if any vulnerabilities were exploited. What is the name of the malicious web shell that was successfully uploaded?
 
 We can filter POST request to identified the uploaded webshell. By following the TCP stream, I can see that the first upload attempt was failed because of invalid format.
-![[webstrike_04.png]]
-![[webstrike_05.png]]
+![webstrike_04](/assets/cyberdef/webstrike_04.png)
+![webstrike_05](/assets/cyberdef/webstrike_05.png)
 The second attempt uploaded successfully, the attacker uploaded a reverse shell listening on port 8080.
-![[webstrike_06.png]]
+![webstrike_01](/assets/cyberdef/webstrike_06.png)
 ```answer
 image.jpg.php
 ```
 >Q4: Identifying the directory where uploaded files are stored is crucial for locating the vulnerable page and removing any malicious files. Which directory is used by the website to store the uploaded files?
 
 When an attacker wanted wanted to locate the upload folder, they will perform enumeration bruteforce the directories. We can filter `GET`request and identify the pattern.
-![[webstrike_07.png]]
+![webstrike_07](/assets/cyberdef/webstrike_07.png)
 ```answer
 /reviews/upload
 ```
@@ -59,7 +59,7 @@ By looking at the php reverse shell the attacker uploaded, I can see that port 8
 >Q6: Recognizing the significance of compromised data helps prioritize incident response actions. Which file was the attacker attempting to exfiltrate?
 
 Looking back at the POST request, there is a packet from web server to attacker's IP
-![[webstrike_08.png]]
+![webstrike_01](/assets/cyberdef/webstrike_08.png)
 ```answer
 passwd
 ```
