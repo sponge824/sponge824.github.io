@@ -19,6 +19,7 @@ pin: false
 >Q1: Identifying the geographical origin of the attack facilitates the implementation of geo-blocking measures and the analysis of threat intelligence. From which city did the attack originate?
 
 ![webstrike_01](/assets/cyberdef/webstrike_01.png)
+
 Based on the pcap file, there are only 2 IP found. By looking at the pcap file, `117.11.88.124` is probably the attacker.
 ![webstrike_02](/assets/cyberdef/webstrike_02.png)
 In order to know where the attack originate, I used `ip.info`. The attack is from Tianjin, China
