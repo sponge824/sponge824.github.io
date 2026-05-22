@@ -34,7 +34,7 @@ In order to know where the attack originate, I used `ip.info`. The attack is fro
 
 Follow the TCP stream of the attacker's IP, we can see the user agent
 
-![webstrike_03|696](/assets/cyberdef/webstrike_03.png)
+![webstrike_03](/assets/cyberdef/webstrike_03.png)
 
 >✅ **Answer: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0**
 
