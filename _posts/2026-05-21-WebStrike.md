@@ -21,14 +21,18 @@ pin: false
 ![webstrike_01](/assets/cyberdef/webstrike_01.png)
 
 Based on the pcap file, there are only 2 IP found. By looking at the pcap file, `117.11.88.124` is probably the attacker.
+
 ![webstrike_02](/assets/cyberdef/webstrike_02.png)
+
 In order to know where the attack originate, I used `ip.info`. The attack is from Tianjin, China
-```Answer
-Tianjin
-```
+
+> ✅ **Answer: Tianjin**
+
+
 >Q2: Knowing the attacker's User-Agent assists in creating robust filtering rules. What's the attacker's Full User-Agent?
 
 Follow the TCP stream of the attacker's IP, we can see the user agent
+
 ![webstrike_03](/assets/cyberdef/webstrike_03.png)
 ```Answer
 Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
