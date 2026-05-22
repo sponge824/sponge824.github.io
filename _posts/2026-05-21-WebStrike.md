@@ -27,7 +27,7 @@ Based on the pcap file, there are only 2 IP found. By looking at the pcap file, 
 In order to know where the attack originate, I used `ip.info`. The attack is from Tianjin, China
 
 > ✅ **Answer: Tianjin**
-
+---
 >Q2: Knowing the attacker's User-Agent assists in creating robust filtering rules. What's the attacker's Full User-Agent?
 
 Follow the TCP stream of the attacker's IP, we can see the user agent
@@ -35,7 +35,7 @@ Follow the TCP stream of the attacker's IP, we can see the user agent
 ![webstrike_03|696](/assets/cyberdef/webstrike_03.png)
 
 >✅ **Answer: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0**
-
+---
 >Q3: We need to determine if any vulnerabilities were exploited. What is the name of the malicious web shell that was successfully uploaded?
 
 We can filter POST request to identified the uploaded webshell. By following the TCP stream, I can see that the first upload attempt was failed because of invalid format.
