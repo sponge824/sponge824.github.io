@@ -33,6 +33,7 @@ From this screenshot, I can see it matched the pattern of PSExec, where it authe
 
 ---
 
+
 > Q2: To fully understand the extent of the breach, can you determine the machine's hostname to which the attacker first pivoted?
 
 ![](assets/cyberdef/Pasted%20image%2020260526185939.png)
