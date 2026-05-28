@@ -10,14 +10,19 @@
 
 /* append your custom style below */
 
+#post-wrapper,
 .post-content {
   blockquote {
-    margin-top: 1.25rem;
-    margin-bottom: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
-  blockquote + hr,
-  hr + blockquote {
+  blockquote + hr {
     margin-top: 2rem;
+    margin-bottom: 2.25rem;
+  }
+
+  hr + blockquote {
+    margin-top: 2.25rem;
   }
 }
