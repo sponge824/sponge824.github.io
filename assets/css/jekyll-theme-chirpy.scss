@@ -1,0 +1,23 @@
+---
+---
+
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* append your custom style below */
+
+.post-content {
+  blockquote {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  blockquote + hr,
+  hr + blockquote {
+    margin-top: 2rem;
+  }
+}
