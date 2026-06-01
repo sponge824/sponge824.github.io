@@ -4,6 +4,7 @@ date: 2026-05-24 00:00:00 +0800
 categories:
   - CyberDefenders
   - Endpoint Forensics
+  - Memory Forensics
 tags:
   - Volatility3
 difficulty: Medium
