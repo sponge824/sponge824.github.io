@@ -1,4 +1,4 @@
-{% assign depth = include.depth | plus: 0 %}
+{% assign depth = include.parent_path | size %}
 {% assign child_categories = '' | split: '' %}
 
 {% for post in site.posts %}
@@ -48,8 +48,7 @@
           </span>
         </div>
 
-        {% assign next_depth = depth | plus: 1 %}
-        {% include category-tree.html parent_path=child_path depth=next_depth lang=include.lang %}
+        {% include category-tree.html parent_path=child_path lang=include.lang %}
       </li>
     {% endfor %}
   </ul>
