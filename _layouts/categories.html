@@ -13,7 +13,6 @@ layout: page
   {% assign first_post = posts_of_category | first %}
 
   {% if category_name == first_post.categories[0] %}
-    {% assign root_path = '' | split: '' | push: category_name %}
     {% assign child_categories = '' | split: '' %}
 
     {% for post in site.posts %}
@@ -57,7 +56,72 @@ layout: page
         </span>
       </div>
 
-      {% include category-tree.html parent_path=root_path lang=lang %}
+      {% if child_categories_size > 0 %}
+        <ul class="list-group list-group-flush">
+          {% for child_name in child_categories %}
+            {% assign grandchild_categories = '' | split: '' %}
+
+            {% for post in site.posts %}
+              {% if post.categories[0] == category_name and post.categories[1] == child_name %}
+                {% assign grandchild_name = post.categories[2] %}
+                {% if grandchild_name %}
+                  {% unless grandchild_categories contains grandchild_name %}
+                    {% assign grandchild_categories = grandchild_categories | push: grandchild_name %}
+                  {% endunless %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+
+            {% assign grandchild_categories = grandchild_categories | sort %}
+            {% assign grandchild_categories_size = grandchild_categories | size %}
+            {% assign child_posts_size = site.categories[child_name] | size %}
+
+            <li class="list-group-item">
+              <div class="d-flex justify-content-between align-items-center">
+                <span>
+                  {% capture child_url %}/categories/{{ child_name | slugify | url_encode }}/{% endcapture %}
+                  <a href="{{ child_url | relative_url }}">{{ child_name }}</a>
+
+                  <span class="text-muted small font-weight-light">
+                    {{ child_posts_size }}
+                    {% if child_posts_size > 1 %}
+                      {{ site.data.locales[lang].categories.post_measure.plural | default: site.data.locales[lang].categories.post_measure }}
+                    {% else %}
+                      {{ site.data.locales[lang].categories.post_measure.singular | default: site.data.locales[lang].categories.post_measure }}
+                    {% endif %}
+                  </span>
+                </span>
+              </div>
+
+              {% if grandchild_categories_size > 0 %}
+                <ul class="list-group list-group-flush ms-3 mt-2">
+                  {% for grandchild_name in grandchild_categories %}
+                    {% assign grandchild_posts_size = site.categories[grandchild_name] | size %}
+
+                    <li class="list-group-item">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span>
+                          {% capture grandchild_url %}/categories/{{ grandchild_name | slugify | url_encode }}/{% endcapture %}
+                          <a href="{{ grandchild_url | relative_url }}">{{ grandchild_name }}</a>
+
+                          <span class="text-muted small font-weight-light">
+                            {{ grandchild_posts_size }}
+                            {% if grandchild_posts_size > 1 %}
+                              {{ site.data.locales[lang].categories.post_measure.plural | default: site.data.locales[lang].categories.post_measure }}
+                            {% else %}
+                              {{ site.data.locales[lang].categories.post_measure.singular | default: site.data.locales[lang].categories.post_measure }}
+                            {% endif %}
+                          </span>
+                        </span>
+                      </div>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
     </div>
   {% endif %}
 {% endfor %}
