@@ -1,0 +1,56 @@
+{% assign depth = include.depth | plus: 0 %}
+{% assign child_categories = '' | split: '' %}
+
+{% for post in site.posts %}
+  {% assign path_matches = true %}
+
+  {% for ancestor in include.parent_path %}
+    {% assign ancestor_index = forloop.index0 %}
+    {% if post.categories[ancestor_index] != ancestor %}
+      {% assign path_matches = false %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+  {% if path_matches %}
+    {% assign child_name = post.categories[depth] %}
+    {% if child_name %}
+      {% unless child_categories contains child_name %}
+        {% assign child_categories = child_categories | push: child_name %}
+      {% endunless %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% assign child_categories = child_categories | sort %}
+{% assign child_categories_size = child_categories | size %}
+
+{% if child_categories_size > 0 %}
+  <ul class="list-group list-group-flush{% if depth > 1 %} ms-3 mt-2{% endif %}">
+    {% for child_name in child_categories %}
+      {% assign child_path = include.parent_path | push: child_name %}
+      {% assign posts_size = site.categories[child_name] | size %}
+
+      <li class="list-group-item">
+        <div class="d-flex justify-content-between align-items-center">
+          <span>
+            {% capture child_url %}/categories/{{ child_name | slugify | url_encode }}/{% endcapture %}
+            <a href="{{ child_url | relative_url }}">{{ child_name }}</a>
+
+            <span class="text-muted small font-weight-light">
+              {{ posts_size }}
+              {% if posts_size > 1 %}
+                {{ site.data.locales[include.lang].categories.post_measure.plural | default: site.data.locales[include.lang].categories.post_measure }}
+              {% else %}
+                {{ site.data.locales[include.lang].categories.post_measure.singular | default: site.data.locales[include.lang].categories.post_measure }}
+              {% endif %}
+            </span>
+          </span>
+        </div>
+
+        {% assign next_depth = depth | plus: 1 %}
+        {% include category-tree.html parent_path=child_path depth=next_depth lang=include.lang %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

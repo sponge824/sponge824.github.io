@@ -1,0 +1,63 @@
+---
+layout: page
+# All the Categories of posts
+---
+
+{% include lang.html %}
+
+{% assign sort_categories = site.categories | sort %}
+
+{% for category in sort_categories %}
+  {% assign category_name = category | first %}
+  {% assign posts_of_category = category | last %}
+  {% assign first_post = posts_of_category | first %}
+
+  {% if category_name == first_post.categories[0] %}
+    {% assign root_path = '' | split: '' | push: category_name %}
+    {% assign child_categories = '' | split: '' %}
+
+    {% for post in site.posts %}
+      {% if post.categories[0] == category_name %}
+        {% assign child_name = post.categories[1] %}
+        {% if child_name %}
+          {% unless child_categories contains child_name %}
+            {% assign child_categories = child_categories | push: child_name %}
+          {% endunless %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% assign child_categories = child_categories | sort %}
+    {% assign child_categories_size = child_categories | size %}
+    {% assign posts_size = posts_of_category | size %}
+
+    <div class="card categories">
+      <div class="card-header d-flex justify-content-between hide-border-bottom">
+        <span>
+          {% capture category_url %}/categories/{{ category_name | slugify | url_encode }}/{% endcapture %}
+          <a href="{{ category_url | relative_url }}">{{ category_name }}</a>
+
+          <span class="text-muted small font-weight-light">
+            {% if child_categories_size > 0 %}
+              {{ child_categories_size }}
+              {% if child_categories_size > 1 %}
+                {{ site.data.locales[lang].categories.category_measure.plural | default: site.data.locales[lang].categories.category_measure }}
+              {% else %}
+                {{ site.data.locales[lang].categories.category_measure.singular | default: site.data.locales[lang].categories.category_measure }}
+              {% endif %},
+            {% endif %}
+
+            {{ posts_size }}
+            {% if posts_size > 1 %}
+              {{ site.data.locales[lang].categories.post_measure.plural | default: site.data.locales[lang].categories.post_measure }}
+            {% else %}
+              {{ site.data.locales[lang].categories.post_measure.singular | default: site.data.locales[lang].categories.post_measure }}
+            {% endif %}
+          </span>
+        </span>
+      </div>
+
+      {% include category-tree.html parent_path=root_path depth=1 lang=lang %}
+    </div>
+  {% endif %}
+{% endfor %}
