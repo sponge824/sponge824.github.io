@@ -1,6 +1,6 @@
 ---
 title: CyberDefenders - PacketDetective
-date: 2026-06-02300:00:00 +0800
+date: 2026-06-03 00:00:00 +0800
 categories:
   - CyberDefenders
   - Network Forensics
