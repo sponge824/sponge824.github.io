@@ -121,7 +121,7 @@ In packet 5, we can see that the attacker used username `backdoor`to authenticat
 > Q8: The attacker leveraged a specific executable file to execute processes remotely on the compromised system. Recognizing this file name can assist in pinpointing the tools used in the attack.  
 > What is the name of the executable file utilized to execute processes remotely?
 
-By referring to the previous screenshot, the attacker is using a tool called `PSEXESVC.EXE` aka PsExec. It is a tool that access the system remotely via SMB protocol. For more information can refer to [2026-05-26-PsExec-Hunt](_posts/2026-05-26-PsExec-Hunt.md).
+By referring to the previous screenshot, the attacker is using a tool called `PSEXESVC.EXE` aka PsExec. It is a tool that access the system remotely via SMB protocol. For more information can refer to [PsExec-Hunt]({% link _posts/2026-05-26-PsExec-Hunt})
 
 >✅ **Answer: PSEXEC.exe**
 
