@@ -24,7 +24,7 @@ pin: false
 Statistics of the protocol can be viewed at **Statistics** -> **Protocol Hierarchy** and look for SMB.
 
 
->✅ **Answer: 4406
+>✅ **Answer: 4406**
 
 ---
 
