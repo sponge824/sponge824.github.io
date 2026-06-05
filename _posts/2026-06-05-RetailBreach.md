@@ -62,7 +62,7 @@ This payload is trying to fetch the victim's cookies to it's own IP.
 
 > Q4: Pinpointing the exact moment an admin user encounters the injected malicious script is crucial for understanding the timeline of a security breach. Can you provide the UTC timestamp when the admin user first visited the page containing the injected malicious script?
 
-Since the path `/reviews.php`was injected a malicious XSS script, we can filter this path in Wireshark and look for packet that is from our IP to attacker's IP after the injection happened. 
+Since the path `/reviews.php`was injected a malicious XSS script, we can filter this path in Wireshark and look for packet that is from victim's IP to attacker's IP after the injection happened. 
 
 ![](assets/cyberdef/Pasted%20image%2020260605211154.png)
 
