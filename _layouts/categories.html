@@ -13,6 +13,7 @@ layout: page
   {% assign first_post = posts_of_category | first %}
 
   {% if category_name == first_post.categories[0] %}
+    {% assign root_index = forloop.index0 %}
     {% assign child_categories = '' | split: '' %}
 
     {% for post in site.posts %}
@@ -29,9 +30,10 @@ layout: page
     {% assign child_categories = child_categories | sort %}
     {% assign child_categories_size = child_categories | size %}
     {% assign posts_size = posts_of_category | size %}
+    {% capture child_list_id %}category-children-{{ root_index }}{% endcapture %}
 
     <div class="card categories">
-      <div class="card-header d-flex justify-content-between hide-border-bottom">
+      <div class="card-header d-flex justify-content-between align-items-center hide-border-bottom">
         <span>
           {% capture category_url %}/categories/{{ category_name | slugify | url_encode }}/{% endcapture %}
           <a href="{{ category_url | relative_url }}">{{ category_name }}</a>
@@ -54,73 +56,107 @@ layout: page
             {% endif %}
           </span>
         </span>
+
+        {% if child_categories_size > 0 %}
+          <button
+            class="btn btn-link text-decoration-none p-0 ms-2"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#{{ child_list_id }}"
+            aria-expanded="false"
+            aria-controls="{{ child_list_id }}"
+            aria-label="Toggle {{ category_name }}"
+          >
+            <i class="fas fa-angle-down fa-fw"></i>
+          </button>
+        {% endif %}
       </div>
 
       {% if child_categories_size > 0 %}
-        <ul class="list-group list-group-flush">
-          {% for child_name in child_categories %}
-            {% assign grandchild_categories = '' | split: '' %}
+        <div id="{{ child_list_id }}" class="collapse">
+          <ul class="list-group list-group-flush">
+            {% for child_name in child_categories %}
+              {% assign child_index = forloop.index0 %}
+              {% assign grandchild_categories = '' | split: '' %}
 
-            {% for post in site.posts %}
-              {% if post.categories[0] == category_name and post.categories[1] == child_name %}
-                {% assign grandchild_name = post.categories[2] %}
-                {% if grandchild_name %}
-                  {% unless grandchild_categories contains grandchild_name %}
-                    {% assign grandchild_categories = grandchild_categories | push: grandchild_name %}
-                  {% endunless %}
+              {% for post in site.posts %}
+                {% if post.categories[0] == category_name and post.categories[1] == child_name %}
+                  {% assign grandchild_name = post.categories[2] %}
+                  {% if grandchild_name %}
+                    {% unless grandchild_categories contains grandchild_name %}
+                      {% assign grandchild_categories = grandchild_categories | push: grandchild_name %}
+                    {% endunless %}
+                  {% endif %}
                 {% endif %}
-              {% endif %}
-            {% endfor %}
+              {% endfor %}
 
-            {% assign grandchild_categories = grandchild_categories | sort %}
-            {% assign grandchild_categories_size = grandchild_categories | size %}
-            {% assign child_posts_size = site.categories[child_name] | size %}
+              {% assign grandchild_categories = grandchild_categories | sort %}
+              {% assign grandchild_categories_size = grandchild_categories | size %}
+              {% assign child_posts_size = site.categories[child_name] | size %}
+              {% capture grandchild_list_id %}category-grandchildren-{{ root_index }}-{{ child_index }}{% endcapture %}
 
-            <li class="list-group-item">
-              <div class="d-flex justify-content-between align-items-center">
-                <span>
-                  {% capture child_url %}/categories/{{ child_name | slugify | url_encode }}/{% endcapture %}
-                  <a href="{{ child_url | relative_url }}">{{ child_name }}</a>
+              <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>
+                    {% capture child_url %}/categories/{{ child_name | slugify | url_encode }}/{% endcapture %}
+                    <a href="{{ child_url | relative_url }}">{{ child_name }}</a>
 
-                  <span class="text-muted small font-weight-light">
-                    {{ child_posts_size }}
-                    {% if child_posts_size > 1 %}
-                      {{ site.data.locales[lang].categories.post_measure.plural | default: site.data.locales[lang].categories.post_measure }}
-                    {% else %}
-                      {{ site.data.locales[lang].categories.post_measure.singular | default: site.data.locales[lang].categories.post_measure }}
-                    {% endif %}
+                    <span class="text-muted small font-weight-light">
+                      {{ child_posts_size }}
+                      {% if child_posts_size > 1 %}
+                        {{ site.data.locales[lang].categories.post_measure.plural | default: site.data.locales[lang].categories.post_measure }}
+                      {% else %}
+                        {{ site.data.locales[lang].categories.post_measure.singular | default: site.data.locales[lang].categories.post_measure }}
+                      {% endif %}
+                    </span>
                   </span>
-                </span>
-              </div>
 
-              {% if grandchild_categories_size > 0 %}
-                <ul class="list-group list-group-flush ms-3 mt-2">
-                  {% for grandchild_name in grandchild_categories %}
-                    {% assign grandchild_posts_size = site.categories[grandchild_name] | size %}
+                  {% if grandchild_categories_size > 0 %}
+                    <button
+                      class="btn btn-link text-decoration-none p-0 ms-2"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#{{ grandchild_list_id }}"
+                      aria-expanded="false"
+                      aria-controls="{{ grandchild_list_id }}"
+                      aria-label="Toggle {{ child_name }}"
+                    >
+                      <i class="fas fa-angle-down fa-fw"></i>
+                    </button>
+                  {% endif %}
+                </div>
 
-                    <li class="list-group-item">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <span>
-                          {% capture grandchild_url %}/categories/{{ grandchild_name | slugify | url_encode }}/{% endcapture %}
-                          <a href="{{ grandchild_url | relative_url }}">{{ grandchild_name }}</a>
+                {% if grandchild_categories_size > 0 %}
+                  <div id="{{ grandchild_list_id }}" class="collapse">
+                    <ul class="list-group list-group-flush ms-3 mt-2">
+                      {% for grandchild_name in grandchild_categories %}
+                        {% assign grandchild_posts_size = site.categories[grandchild_name] | size %}
 
-                          <span class="text-muted small font-weight-light">
-                            {{ grandchild_posts_size }}
-                            {% if grandchild_posts_size > 1 %}
-                              {{ site.data.locales[lang].categories.post_measure.plural | default: site.data.locales[lang].categories.post_measure }}
-                            {% else %}
-                              {{ site.data.locales[lang].categories.post_measure.singular | default: site.data.locales[lang].categories.post_measure }}
-                            {% endif %}
-                          </span>
-                        </span>
-                      </div>
-                    </li>
-                  {% endfor %}
-                </ul>
-              {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
+                        <li class="list-group-item">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <span>
+                              {% capture grandchild_url %}/categories/{{ grandchild_name | slugify | url_encode }}/{% endcapture %}
+                              <a href="{{ grandchild_url | relative_url }}">{{ grandchild_name }}</a>
+
+                              <span class="text-muted small font-weight-light">
+                                {{ grandchild_posts_size }}
+                                {% if grandchild_posts_size > 1 %}
+                                  {{ site.data.locales[lang].categories.post_measure.plural | default: site.data.locales[lang].categories.post_measure }}
+                                {% else %}
+                                  {{ site.data.locales[lang].categories.post_measure.singular | default: site.data.locales[lang].categories.post_measure }}
+                                {% endif %}
+                              </span>
+                            </span>
+                          </div>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
       {% endif %}
     </div>
   {% endif %}
