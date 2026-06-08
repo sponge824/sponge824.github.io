@@ -6,6 +6,7 @@ categories:
   - Network Forensics
 tags:
   - WireShark
+  - PortScan
 difficulty: Easy
 pin: false
 ---

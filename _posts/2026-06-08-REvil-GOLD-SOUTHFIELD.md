@@ -48,7 +48,7 @@ The process ID that created this file is `5348`and the process is `facebook assi
 
 ![](assets/cyberdef/Pasted%20image%2020260608171524.png)
 
-Since we already found the process id of the ransomware, we can filter it as the parent process id `winlog.event_data.ParentProcessId: 5348` to look for any other processes created by it. There is one result returned, and it executed a encoded powershell command. After decoding it with CyberChef, this command is deleting all the shadow copies on the system.
+Since we already found the process id of the ransomware, we can filter it as the parent process id `winlog.event_data.ParentProcessId: 5348` to look for any other processes created by it. There is one result returned, and it executed an encoded powershell command. After decoding it with CyberChef, this command is deleting all the shadow copies on the system.
 
 >✅ **Answer: `Get-WmiObject Win32_Shadowcopy | ForEach-Object {$_.Delete();}`**
 
