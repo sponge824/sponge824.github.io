@@ -1,5 +1,5 @@
 ---
-title: CyberDefenders - REvil - XXE Infiltration
+title: CyberDefenders - XXE Infiltration
 date: 2026-06-08 00:00:00 +0800
 categories:
   - CyberDefenders
