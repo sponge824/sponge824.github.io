@@ -23,7 +23,7 @@ pin: false
 
 ![](assets/cyberdef/Pasted%20image%2020260610180839.png)
 
-This Azure environment consist of thee types of log: `azureadlogs`,`bloblogs`, and `activitylogs`. Next, we can group all the logon country and identify which country the attack originated. Since, this is a US-base company, high volume of logon from another country increase the suspicion.
+This Azure environment consist of three types of log: `azureadlogs`,`bloblogs`, and `activitylogs`. Next, we can group all the logon country and identify which country the attack originated. Since, this is a US-base company, high volume of logon from another country increase the suspicion.
 
 >✅ **Answer: Germany**
 
@@ -43,7 +43,7 @@ By filtering the log originating from Germany. `source.geo.country_name.keyword:
 
 ![](assets/cyberdef/Pasted%20image%2020260610184641.png)
 
-To identify the attacker's entry point, we can filter the logon username into a table. Reviewing the results, we can see that the initial logon username was `alice`, whcih was later followed by `it.admin1`.
+To identify the attacker's entry point, we can filter the logon username into a table. Reviewing the results, we can see that the initial logon username was `alice`, which was later followed by `it.admin1`.
 
 >✅ **Answer: alice**
 
@@ -86,7 +86,7 @@ To reduce the scope, we can configure start date/time to the timestamp of initia
 ```
 azure-eventhub.eventhub: activitylogs and event.action.keyword : MICROSOFT.COMPUTE/VIRTUALMACHINES/START/ACTION
 ```
- The query above filters the logs to display events related to the activity performed and the action of starting the virtual machines. In addtion, we can filter add `azure.resource.name`column to table, it will display the name of the virtual machine
+ The query above filters the logs to display events related to the activity performed and the action of starting the virtual machines. In addition, we can filter add `azure.resource.name`column to table, it will display the name of the virtual machine
 
 >✅ **Answer: DEV01VM**
 
