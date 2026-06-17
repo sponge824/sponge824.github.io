@@ -8,6 +8,8 @@ categories:
 tags:
   - Registry-Explorer
   - Event-Log-Explorer
+  - NTFS-Log-Tracker
+  - Timeline-Explorer
 difficulty: Medium
 pin: false
 ---
