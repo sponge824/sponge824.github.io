@@ -122,13 +122,13 @@ Attacker would usually compressed the files into an archive before exfiltrate be
 ---
 ## MITRE ATT&CK
 
-| Technique                                                             | ID        | Description                                                                                                  |
-| --------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------ |
-| Masquerading                                                          | T1036     | Used `Rebeus.exe`, renamed it as `BackupUtility.exe`<br>Used `Mimikatz.exe`, renamed it as `DefragTool.exe`` |
-| User Execution                                                        | T1204     | Executed `AdobeUpdater.exe`                                                                                  |
-| Steal or Forge Kerberos Tickets: AS-REP Roasting                      | T1558.004 | `asreproast /format:hashcat`                                                                                 |
-| Rogue Domain Controller                                               | T1207     | mimikatz DCShadow                                                                                            |
-| Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder | T1547.001 | `Run` registry key set                                                                                       |
+| Technique                                                             | ID        | Description                                                                                                 |
+| --------------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------- |
+| Masquerading                                                          | T1036     | Used `Rebeus.exe`, renamed it as `BackupUtility.exe`<br>Used `Mimikatz.exe`, renamed it as `DefragTool.exe` |
+| User Execution                                                        | T1204     | Executed `AdobeUpdater.exe`                                                                                 |
+| Steal or Forge Kerberos Tickets: AS-REP Roasting                      | T1558.004 | `asreproast /format:hashcat`                                                                                |
+| Rogue Domain Controller                                               | T1207     | mimikatz DCShadow                                                                                           |
+| Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder | T1547.001 | `Run` registry key set                                                                                      |
 
 
 ---
